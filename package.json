@@ -1,0 +1,18 @@
+{
+  "name": "language_detector",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "dependencies": {
+    "bluebird": "^3.7.2",
+    "express": "^4.17.1",
+    "n-gram": "^1.1.1",
+    "random-normal": "^1.0.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Amit Kanfer & Punam Mahale",
+  "license": "ISC"
+}
