@@ -8,12 +8,20 @@
     $( document ).ready(() => {
       $.get("/getLanguagesCount",(response) => {
         $("#languages_count").text(response);
+        $("#text_area").text(""); // Clearing the text area
       });
 
       $('#text_area').bind('input propertychange', () => {
         const currentValue = $('#text_area').val();
+        if (currentValue.length == 0) {
+          $("#detected_language").text("N/A");
+          $("#detection_probability").text("N/A");
+          return;
+        }
         $.get(`/detectLanguage?value=${currentValue}`, (response) => {
-          $("#detected_language").text(response);
+          $("#detected_language").text(response.language);
+          const probability = Math.round(Number(response.prob) * 100);
+          $("#detection_probability").text(probability + "%");
         });        
       });
     });
@@ -30,6 +38,11 @@
     <p>
       Detected language: <label id=detected_language>N/A</label>
     </p>
-    <p><em>&copy; Amit Kanfer &amp; Punam Mahale</em></p>
+    <p>
+      Detection probability: <label id=detection_probability>N/A</label>
+    </p>
+    <footer>
+        <p><em>&copy; Amit Kanfer &amp; Punam Mahale</em></p>
+    </footer>
 </body>
 </html>

@@ -241,11 +241,14 @@ fs.readdirAsync(dirname)
 function detectLangauge(testString) {
     const probabilities = getProbabilities(testString);
     const index = probabilities.indexOf(Math.max(...probabilities));
-    return langList[index];    
+    return {
+        language: langList[index],
+        prob: probabilities[index]
+    };
 }
 
 function check(testString, expectedLanguage) {
-    const detectedLanguage = detectLangauge(testString);
+    const detectedLanguage = detectLangauge(testString).language;
     if (detectedLanguage == expectedLanguage) {
         console.log("SUCCESS! " + testString + " was identified successfully as " + expectedLanguage);
     } else {
