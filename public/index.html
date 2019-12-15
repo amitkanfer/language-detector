@@ -2,6 +2,8 @@
 <html>
 <head>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
   <meta charset="utf-8">
   <title>Language detector demo</title>
   <script>
@@ -19,7 +21,7 @@
           return;
         }
         $.get(`/detectLanguage?value=${currentValue}`, (response) => {
-          $("#detected_language").text(response.language);
+          $("#detected_language").text(response.language + " - " + response.language_name);
           const probability = Math.round(Number(response.prob) * 100);
           $("#detection_probability").text(probability + "%");
         });        
@@ -28,21 +30,22 @@
   </script>
 </head>
 <body>
+  <div style="width:50%;border-radius:20px;transform: translateX(50%);padding-top: 10px;">
     <h1 style="color: #4485b8;"><span style="color: #000;"><span style="color: #4485b8;">Language Detector Demo</span></span></h1>
 
-    <p>Languages loaded count: <label id=languages_count>0</label></p>
-    <p><em>Type some text:</em></p>
+    <p style="padding-top: 20px;">Languages loaded count: <label id=languages_count>0</label></p>
     
-    <textarea id="text_area" rows="4" cols="50">
+    <textarea id="text_area" rows="4" cols="50" placeholder="Enter text here...">
     </textarea>
-    <p>
+    <p style="padding-top: 40px;">
       Detected language: <label id=detected_language>N/A</label>
     </p>
-    <p>
+    <p style="padding-top: 20px;">
       Detection probability: <label id=detection_probability>N/A</label>
     </p>
-    <footer>
-        <p><em>&copy; Amit Kanfer &amp; Punam Mahale</em></p>
+    <footer style="padding-top: 20px;">
+        <p><em>&copy; Amit Kanfer &amp; Punam Mahale. CS410 2019.</em></p>
     </footer>
+  </div>
 </body>
 </html>
