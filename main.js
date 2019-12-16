@@ -17,7 +17,7 @@ const langProfiles = {};
 const langList = [];
 
 const app = express();
-const PORT = 80;
+const PORT = 3000;
 
 // create a route for the app
 app.get('/getLanguagesCount', (req, res) => {

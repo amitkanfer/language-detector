@@ -1,18 +1,53 @@
 # language-detector
 This is a simple demo for language detection mechanism using NLP techniques.
 
+### An overview of the function of the code (i.e., what it does and what it can be used for). 
+The <b>language-detector</b> application detects the language of the text that is entered in the 
+<i>Input Text</i> area. As you type the letters, the app in the background, runs an algorithm to detect the probabilities of
+the string/text typed. Based on the best probability achieved, it concludes the language in the format <i>"locale - language name"</i>, for e.g. "en - English". It also displays the percentage of probability for the detected text.
 
-## For language-detector demo
+The idea behind this application was based on personal experience of one of our Author Amit Kanfer. Amit's native language being Hebrew, he mostly set his keyboard on Hebrew in order to write emails to friends/family. And many a times, when he is writing his office emails, halfway through he is on Hebrew and realizes that he should have being warned and changed his keyboard language.
+So, this is one of the use case for our application.
+Along with the above, this application can be integrated with some of the below existing tools/application for language detection:
+    
+    a. Text editor
+    b. Email composing editor
+    c. Chat applications
+
+### Documentation of how the software is implemented with sufficient detail so that others can have a basic understanding of your code for future extension or any further improvement
+This application is build using Node Js and various NPM packages like n-gram, bluebird, etc.
+
+Application is maintaining a resource for each of the supported language. Here it is supporting 71 languages. Refer to path `resources/languages`. For each language, this resource is basically the frequency of each letter in that language.
+
+At run time, the application builds a profile for the languages based on the resource file available. To do this, it creates N-grams from the texts. This is stored in the profiles.
+We are using NPM package `n-gram` to generate the N-grams. The support is for unigram, bigram and trigram.
+
+When the user inputs the text, we go in exactly the same process. Based on the input text, create n-grams for it. And compare the relative frequency of them and find the language that matches the best frequency.
+
+### Documentation of the usage of the software including either documentation of usages of APIs or detailed instructions on how to install and run a software, whichever is applicable.
+
+Follow the below steps to run the application demo
 
 1. clone the repo using https://github.com/amitkanfer/language-detector.git or by clicking on the Clone or download button and copying the GIT link.
 2. run `npm install`
 3. run `node main.js`
-    Be sure to check if this throws error for PORT alrady in use.
+    Be sure to check if this throws error for PORT already in use.
     If you get an error for this, open `main.js` and look for line `const PORT = 80;`
     Change the port number to a desired one.
 4. Change PORT number in PORT URL here and browse to `http://localhost:PORT/` using your favorite web  browser.
 
-## Language Support by our application
+### Brief description of contribution of each team member in case of a multi-person team. 
+Amit Kanfer worked on the algorithm in node and created the git repo to package this application
+Punam Mahale worked on language name integration, UI styling and the documentation.
+
+### Challenges/Limitation
+If the input text is short(less than 50 characters) or is unclean such as tweets, the application may give varying locale as the probability is calculated.
+
+The input text if composed of various languages, the application detects the language that is the most dominant. The algorithm may detect wrong language. However, the suggestion is to split the text in paragrams or sentences and detect in parts. 
+
+Since, this application is supporting only 71 languages right now whose profiles gets build at runtime, if a language is not supported, the application may give unexpected results. One of the improvements to this application can be this scenario to warn that language is not supported.
+
+## Language Supported by our application
 
 1. af Afrikaans
 1. an Aragonese
@@ -88,3 +123,13 @@ This is a simple demo for language detection mechanism using NLP techniques.
 
 ## Authors
 Amit Kanfer and Punam Mahale
+
+## References
+https://www.npmjs.com/package/n-gram
+https://www.npmjs.com/package/bluebird
+http://bluebirdjs.com/docs/api-reference.html
+https://www.npmjs.com/package/random-normal
+https://www.npmjs.com/package/express
+https://github.com/optimaize/language-detector
+https://blog.xrds.acm.org/2017/10/introduction-n-grams-need/
+https://en.wikipedia.org/wiki/Frequency_analysis
