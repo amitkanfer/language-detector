@@ -3,7 +3,7 @@ const Promise = require('bluebird');
 const fs = Promise.promisifyAll(require('fs'));
 const randomNormal = require('random-normal');
 const express = require('express');
-
+const languageName = require('./resources/language-name').language_dictionary;
 const SHORT_TEXT_THRESHOLD = 50;
 const CONV_THRESHOLD = 0.99999;
 const ALPHA = 0.5;
@@ -195,6 +195,7 @@ function buildProfile(content) {
 }
 
 const dirname = __dirname + "/resources/languages/";
+
 fs.readdirAsync(dirname)
 .then((filenames) => {
     const promises = [];
@@ -241,8 +242,10 @@ fs.readdirAsync(dirname)
 function detectLangauge(testString) {
     const probabilities = getProbabilities(testString);
     const index = probabilities.indexOf(Math.max(...probabilities));
+    
     return {
         language: langList[index],
+        language_name: languageName.filter(x => Object.keys(x) == langList[index])[0][langList[index]],
         prob: probabilities[index]
     };
 }
